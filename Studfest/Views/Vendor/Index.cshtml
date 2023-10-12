@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Studfest.Models.Vendor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="CreateVendor">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorEmailAddresss)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorIdNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverProfileImage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorEmailAddresss)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorIdNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverProfileImage)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

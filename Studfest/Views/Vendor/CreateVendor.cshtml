@@ -1,0 +1,58 @@
+﻿@model Studfest.Models.Vendor
+
+@{
+    ViewData["Title"] = "CreateVendor";
+}
+
+<h1>CreateVendor</h1>
+
+<h4>Vendor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateVendor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VendorTitle" class="control-label"></label>
+                <input asp-for="VendorTitle" class="form-control" />
+                <span asp-validation-for="VendorTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendorFirstName" class="control-label"></label>
+                <input asp-for="VendorFirstName" class="form-control" />
+                <span asp-validation-for="VendorFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendorLastName" class="control-label"></label>
+                <input asp-for="VendorLastName" class="form-control" />
+                <span asp-validation-for="VendorLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendorEmailAddresss" class="control-label"></label>
+                <input asp-for="VendorEmailAddresss" class="form-control" />
+                <span asp-validation-for="VendorEmailAddresss" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendorIdNumber" class="control-label"></label>
+                <input asp-for="VendorIdNumber" class="form-control" />
+                <span asp-validation-for="VendorIdNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverProfileImage" class="control-label"></label>
+                <input asp-for="DriverProfileImage" class="form-control" />
+                <span asp-validation-for="DriverProfileImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
