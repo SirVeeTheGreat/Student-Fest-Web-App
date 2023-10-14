@@ -31,7 +31,7 @@ namespace Studfest.Controllers
             ViewBag.VendorItems = vendor.Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
-                Text = x.VendorFirstName // Assuming you have a 'Name' property in your Vendor model
+                Text = x.VendorFirstName 
             }).ToList();
 
             return View(product);
@@ -43,7 +43,7 @@ namespace Studfest.Controllers
    
             
             await _product.Create(product);
-            return View("Index");
+            return RedirectToAction(nameof(Index));
         }
 
     }
