@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Studfest.Migrations
 {
-    public partial class studfest1 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -209,7 +209,7 @@ namespace Studfest.Migrations
                     VendorFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VendorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VendorEmailAddresss = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VendorIdNumber = table.Column<long>(type: "bigint", maxLength: 13, nullable: false),
+                    VendorIdNumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     DriverProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ServiceProvidersDocumentsId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -271,8 +271,7 @@ namespace Studfest.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ResidentalAddresses_VendorId",
                 table: "ResidentalAddresses",
-                column: "VendorId",
-                unique: true);
+                column: "VendorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_VendorId",

@@ -12,8 +12,8 @@ using Studfest.Data;
 namespace Studfest.Migrations
 {
     [DbContext(typeof(StudentFestDb))]
-    [Migration("20230809001212_student_fest_2")]
-    partial class student_fest_2
+    [Migration("20231014092338_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
