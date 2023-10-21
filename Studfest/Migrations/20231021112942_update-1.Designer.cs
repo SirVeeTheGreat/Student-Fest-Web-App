@@ -12,8 +12,8 @@ using Studfest.Data;
 namespace Studfest.Migrations
 {
     [DbContext(typeof(StudentFestDb))]
-    [Migration("20231014092338_initial")]
-    partial class initial
+    [Migration("20231021112942_update-1")]
+    partial class update1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,25 +23,6 @@ namespace Studfest.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Studfest.Models.ApprovedDeliveryTeam", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("DeliveryTeamId")
-                        .HasColumnType("int")
-                        .HasColumnName("DeliveryTeamId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeliveryTeamId");
-
-                    b.ToTable("ApprovedDeliveryTeams");
-                });
 
             modelBuilder.Entity("Studfest.Models.ApprovedVendor", b =>
                 {
@@ -60,9 +41,58 @@ namespace Studfest.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VendorId");
+                    b.HasIndex("VendorId")
+                        .IsUnique();
 
                     b.ToTable("ApprovedVendors");
+                });
+
+            modelBuilder.Entity("Studfest.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("Studfest.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int")
+                        .HasColumnName("CartId");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
+                        .HasColumnName("ProductId");
+
+                    b.Property<int>("ProductQuanint")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("Studfest.Models.ContactDetails", b =>
@@ -82,10 +112,6 @@ namespace Studfest.Migrations
                     b.Property<string>("CountryCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DeliveryTeamId")
-                        .HasColumnType("int")
-                        .HasColumnName("DeliveryTeamId");
-
                     b.Property<int>("MobileNumber")
                         .HasColumnType("int");
 
@@ -95,14 +121,13 @@ namespace Studfest.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryTeamId");
-
-                    b.HasIndex("VendorId");
+                    b.HasIndex("VendorId")
+                        .IsUnique();
 
                     b.ToTable("ContactDetails");
                 });
 
-            modelBuilder.Entity("Studfest.Models.DeliveryInformation", b =>
+            modelBuilder.Entity("Studfest.Models.Events", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,83 +135,24 @@ namespace Studfest.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("DeliveryCity")
-                        .IsRequired()
+                    b.Property<bool>("ApprovedToPublish")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Decription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeliveryCountry")
-                        .IsRequired()
+                    b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeliveryHouseNumber")
-                        .IsRequired()
+                    b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeliveryPostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeliveryStreetName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Deliverysuburb")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("receiptContactNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DeliveryInformation");
-                });
-
-            modelBuilder.Entity("Studfest.Models.DeliveryTeam", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DriverProfileImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DriversLicence")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ServiceProvidersDocumentsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehicleRegistrationNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VehileImage")
-                        .IsRequired()
+                    b.Property<string>("UserEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceProvidersDocumentsId");
-
-                    b.ToTable("DeliveryTeam");
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Studfest.Models.Order", b =>
@@ -200,16 +166,31 @@ namespace Studfest.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeliverInfoId")
-                        .HasColumnType("int")
-                        .HasColumnName("DeliverInfoId");
+                    b.Property<string>("OrderDetails")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DeliveryTeamId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int")
-                        .HasColumnName("DeliveryTeamId");
+                        .HasColumnName("OrderId");
 
-                    b.Property<DateTime>("EstimatedDeliveryTime")
-                        .HasColumnType("datetime2");
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Studfest.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int")
+                        .HasColumnName("OrderId");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
@@ -217,13 +198,11 @@ namespace Studfest.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliverInfoId");
-
-                    b.HasIndex("DeliveryTeamId");
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("Studfest.Models.Product", b =>
@@ -321,40 +300,10 @@ namespace Studfest.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VendorId");
+                    b.HasIndex("VendorId")
+                        .IsUnique();
 
                     b.ToTable("ResidentalAddresses");
-                });
-
-            modelBuilder.Entity("Studfest.Models.ServiceProvidersDocuments", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DocumentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DocumentPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DocumentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsUploaded")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("VendorId")
-                        .HasColumnType("int")
-                        .HasColumnName("VendorId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VendorId");
-
-                    b.ToTable("ServicesDocuments");
                 });
 
             modelBuilder.Entity("Studfest.Models.Services", b =>
@@ -382,6 +331,31 @@ namespace Studfest.Migrations
                     b.ToTable("Services");
                 });
 
+            modelBuilder.Entity("Studfest.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MobileNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Studfest.Models.Vendor", b =>
                 {
                     b.Property<int>("Id")
@@ -393,9 +367,6 @@ namespace Studfest.Migrations
                     b.Property<string>("DriverProfileImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ServiceProvidersDocumentsId")
-                        .HasColumnType("int");
 
                     b.Property<string>("VendorEmailAddresss")
                         .IsRequired()
@@ -420,82 +391,87 @@ namespace Studfest.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceProvidersDocumentsId");
-
                     b.ToTable("Vendor");
-                });
-
-            modelBuilder.Entity("Studfest.Models.ApprovedDeliveryTeam", b =>
-                {
-                    b.HasOne("Studfest.Models.DeliveryTeam", "DeliveryTeam")
-                        .WithMany("ApprovedDeliveryTeams")
-                        .HasForeignKey("DeliveryTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DeliveryTeam");
                 });
 
             modelBuilder.Entity("Studfest.Models.ApprovedVendor", b =>
                 {
                     b.HasOne("Studfest.Models.Vendor", "Vendor")
-                        .WithMany("ApprovedVendor")
-                        .HasForeignKey("VendorId")
+                        .WithOne("ApprovedVendor")
+                        .HasForeignKey("Studfest.Models.ApprovedVendor", "VendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Vendor");
                 });
 
-            modelBuilder.Entity("Studfest.Models.ContactDetails", b =>
+            modelBuilder.Entity("Studfest.Models.Cart", b =>
                 {
-                    b.HasOne("Studfest.Models.DeliveryTeam", "DeliveryTeams")
-                        .WithMany("ContactDetails")
-                        .HasForeignKey("DeliveryTeamId")
+                    b.HasOne("Studfest.Models.User", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("Studfest.Models.Cart", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Studfest.Models.Vendor", "Vendors")
-                        .WithMany("ContactDetails")
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DeliveryTeams");
-
-                    b.Navigation("Vendors");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Studfest.Models.DeliveryTeam", b =>
+            modelBuilder.Entity("Studfest.Models.CartItem", b =>
                 {
-                    b.HasOne("Studfest.Models.ServiceProvidersDocuments", null)
-                        .WithMany("DeliveryTeams")
-                        .HasForeignKey("ServiceProvidersDocumentsId");
-                });
-
-            modelBuilder.Entity("Studfest.Models.Order", b =>
-                {
-                    b.HasOne("Studfest.Models.DeliveryInformation", "DeliveryInformation")
-                        .WithMany("Orders")
-                        .HasForeignKey("DeliverInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Studfest.Models.DeliveryTeam", "DeliveryTeam")
-                        .WithMany("Orders")
-                        .HasForeignKey("DeliveryTeamId")
+                    b.HasOne("Studfest.Models.Cart", "Cart")
+                        .WithMany("CartItem")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Studfest.Models.Product", "Product")
-                        .WithMany("Orders")
+                        .WithMany("CartItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DeliveryInformation");
+                    b.Navigation("Cart");
 
-                    b.Navigation("DeliveryTeam");
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Studfest.Models.ContactDetails", b =>
+                {
+                    b.HasOne("Studfest.Models.Vendor", "Vendors")
+                        .WithOne("ContactDetails")
+                        .HasForeignKey("Studfest.Models.ContactDetails", "VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vendors");
+                });
+
+            modelBuilder.Entity("Studfest.Models.Order", b =>
+                {
+                    b.HasOne("Studfest.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Studfest.Models.OrderItem", b =>
+                {
+                    b.HasOne("Studfest.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Studfest.Models.Product", "Product")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -514,19 +490,8 @@ namespace Studfest.Migrations
             modelBuilder.Entity("Studfest.Models.ResidentalAddress", b =>
                 {
                     b.HasOne("Studfest.Models.Vendor", "Vendor")
-                        .WithMany("ResidentalAddress")
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vendor");
-                });
-
-            modelBuilder.Entity("Studfest.Models.ServiceProvidersDocuments", b =>
-                {
-                    b.HasOne("Studfest.Models.Vendor", "Vendor")
-                        .WithMany("Documents")
-                        .HasForeignKey("VendorId")
+                        .WithOne("ResidentalAddress")
+                        .HasForeignKey("Studfest.Models.ResidentalAddress", "VendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -544,37 +509,28 @@ namespace Studfest.Migrations
                     b.Navigation("Vendor");
                 });
 
-            modelBuilder.Entity("Studfest.Models.Vendor", b =>
+            modelBuilder.Entity("Studfest.Models.Cart", b =>
                 {
-                    b.HasOne("Studfest.Models.ServiceProvidersDocuments", null)
-                        .WithMany("Vendors")
-                        .HasForeignKey("ServiceProvidersDocumentsId");
+                    b.Navigation("CartItem");
                 });
 
-            modelBuilder.Entity("Studfest.Models.DeliveryInformation", b =>
+            modelBuilder.Entity("Studfest.Models.Order", b =>
                 {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Studfest.Models.DeliveryTeam", b =>
-                {
-                    b.Navigation("ApprovedDeliveryTeams");
-
-                    b.Navigation("ContactDetails");
-
-                    b.Navigation("Orders");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Studfest.Models.Product", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("CartItems");
+
+                    b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("Studfest.Models.ServiceProvidersDocuments", b =>
+            modelBuilder.Entity("Studfest.Models.User", b =>
                 {
-                    b.Navigation("DeliveryTeams");
+                    b.Navigation("Cart");
 
-                    b.Navigation("Vendors");
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Studfest.Models.Vendor", b =>
@@ -582,8 +538,6 @@ namespace Studfest.Migrations
                     b.Navigation("ApprovedVendor");
 
                     b.Navigation("ContactDetails");
-
-                    b.Navigation("Documents");
 
                     b.Navigation("Products");
 

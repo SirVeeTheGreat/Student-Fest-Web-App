@@ -7,6 +7,6 @@ namespace Studfest.Repository.Account
     {
         Task SignUp(SignUp signUp);
 
-        Task<string> Login(Models.Login login, string returnUrl);
+        Task<string> Login(Models.Login login);
     }
 }

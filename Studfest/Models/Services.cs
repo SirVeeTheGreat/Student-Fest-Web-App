@@ -10,6 +10,7 @@ namespace Studfest.Models
 
         public string ServiceName { get; set; } = string.Empty;
 
+        public string ImageUrl { get; set; } 
 
         [Column("VendorId")]
         public int VendorId { get; set; }

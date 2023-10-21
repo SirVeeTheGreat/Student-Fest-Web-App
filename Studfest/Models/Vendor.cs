@@ -29,15 +29,12 @@ namespace Studfest.Models
         public string DriverProfileImage { get; set; } = string.Empty;
         public ICollection<Product> Products { get; set; } 
 
-        public ICollection<ApprovedVendor>  ApprovedVendor { get; set; }
+        public ApprovedVendor  ApprovedVendor { get; set; }
         
-        public ICollection<ContactDetails> ContactDetails { get; set; }
-        public string ClaimType { get;} = "VENDOR";
+        public ContactDetails ContactDetails { get; set; }
 
         public ICollection<Services> Services { get; set; }
 
-        public ICollection<ServiceProvidersDocuments> Documents { get; set; }
-
-        public ICollection<ResidentalAddress> ResidentalAddress { get; set; }
+        public ResidentalAddress ResidentalAddress { get; set; }
     }
 }

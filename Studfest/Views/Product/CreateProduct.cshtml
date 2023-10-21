@@ -1,15 +1,22 @@
 ﻿@model Studfest.Models.Product
 
+
 @{
     ViewData["Title"] = "CreateProduct";
     Layout = null;
 }
+        
+   
 
-<h1>CreateProduct</h1>
+
+<link href="~/css/style.min.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+
+
 
 <h4>Product</h4>
-<hr />
-<div class="row">
+
+<div class="row m-1 p-5">
     <div class="col-md-4">
         <form asp-action="CreateProduct">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

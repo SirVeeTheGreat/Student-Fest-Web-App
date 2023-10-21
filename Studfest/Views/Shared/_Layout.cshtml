@@ -1,4 +1,4 @@
-﻿@using System.Security.Claims;
+﻿﻿@using System.Security.Claims;
 @inject IHttpContextAccessor HttpContextAccessor;
 
 
@@ -17,7 +17,7 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -34,11 +34,11 @@
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid top-container">
-        
+
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
-                    <img src="~/img/WhatsApp Image 2023-10-12 at 12.34.26.jpeg" style="width: 80px; height: 80px"  class="logo"  />
+                    <img src="~/img/WhatsApp Image 2023-10-12 at 12.34.26.jpeg" style="width: 80px; height: 80px" class="logo" />
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
@@ -66,15 +66,13 @@
         </div>
     </div>
     <!-- Topbar End -->
-
-
     <!-- Navbar Start -->
     <div class="container-fluid mb-5">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">Categories</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
+                    <h6 class="m-0 text-white">Shop By Department</h6>
+                    <i class="fa fa-angle-down text-white"></i>
                 </a>
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
                     <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
@@ -122,17 +120,18 @@
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             @{
-                                if(User.Identity.IsAuthenticated){
-                                    <a  asp-action="LogOut" asp-controller="Account" class="form-submit m-1">Log Out <i class="fi fi-sr-exit mt-2"></i></a>
+                                if (User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-action="LogOut" asp-controller="Account" class="form-submit m-1">Log Out <i class="fi fi-sr-exit mt-2"></i></a>
                                 }
                                 else
                                 {
-                                    <a  asp-action="Login" asp-controller="Account" class="form-submit m-1">Login <i class="fi fi-rs-circle-user m-1"></i></a>
-                                    <a  asp-action="SignUp" asp-controller="Account" class="form-submit m-1">Register</a>
+                                    <a asp-action="Login" asp-controller="Account" class="form-submit m-1">Login <i class="fi fi-rs-circle-user m-1"></i></a>
+                                    <a asp-action="SignUp" asp-controller="Account" class="form-submit m-1">Register</a>
                                 }
                             }
-                           
-                            
+
+
                         </div>
                     </div>
                 </nav>
@@ -187,7 +186,7 @@
                 <a href="" class="text-decoration-none">
                     <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
                 </a>
-                           
+
                 <p class="mb-2"><i class="fa fa-envelope text-white mr-3"></i>info@studentfest.com</p>
                 <p class="mb-0"><i class="fa fa-phone-alt text-white mr-3"></i>079 473 8808</p>
             </div>
@@ -223,7 +222,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
-                                    required="required" />
+                                       required="required" />
                             </div>
                             <div>
                                 <button class="button-58" type="submit">Subscribe Now</button>
@@ -236,19 +235,17 @@
         <div class="row border-top border-light mx-xl-5 py-4">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-white">
-                    &copy; <a class="text-white font-weight-semi-bold" href="#">Student Fest</a>. All Rights Reserved.                 
+                    &copy; <a class="text-white font-weight-semi-bold" href="#">Student Fest</a>. All Rights Reserved.
                 </p>
             </div>
-           
+
         </div>
     </div>
     <!-- Footer End -->
-
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-    
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

@@ -1,0 +1,38 @@
+﻿@model Studfest.Models.Services
+<link rel="stylesheet" src="~/css/styles.css"/>
+
+@{
+    ViewData["Title"] = "CreateService";
+    Layout = null;
+}
+
+<h1>CreateService</h1>
+
+<form asp-action="CreateService" method="post" class="mt-5">
+    <div class="row">
+        <input asp-for="Id" hidden/>
+        <div class="form-group">
+            <label class="form-label" asp-for="ServiceName"></label>
+            <input class="form-control form-control-lg" asp-for="ServiceName"/>
+            <span asp-validation-for="ServiceName" class="text-danger"></span>
+        </div>
+         <div class="form-group">
+            <label class="form-label" asp-for="ServiceDescription"></label>
+            <input class="form-control form-control-lg" asp-for="ServiceDescription"/>
+            <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label" asp-for="ImageUrl"></label>
+            <input class="form-control form-control-lg" asp-for="ImageUrl" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VendorId" class="control-label"></label>
+            <select asp-for="VendorId" class="form-control" asp-items="@(ViewBag.VendorItems)"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" value="Create">Create</button>
+    </div>
+</form>
+

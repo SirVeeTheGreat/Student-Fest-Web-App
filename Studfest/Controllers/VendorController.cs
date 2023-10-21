@@ -5,6 +5,8 @@ using Studfest.Models;
 
 namespace Studfest.Controllers
 {
+
+
     [Authorize]
     public class VendorController : Controller
     {

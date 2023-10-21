@@ -22,11 +22,7 @@ namespace Studfest.Models
         public Vendor  Vendors { get; set; }
 
 
-        [Column("DeliveryTeamId")]
-        public int DeliveryTeamId { get; set; }
-
-        [ForeignKey(nameof(DeliveryTeamId))]
-        public DeliveryTeam DeliveryTeams { get; set; }
+ 
 
         
     }

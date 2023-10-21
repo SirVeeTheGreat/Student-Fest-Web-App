@@ -20,31 +20,26 @@ namespace Studfest.Models
         public int ProductCount { get; set; } = 0;
         [Required]
         public double ProductPrice { get; set; }
-
         [Required]
         public string ImageLink { get; set; }
-
         public bool EligibleForDelivery = false;
         [Required]
         public string Warranty { get; set; } = string.Empty;
         [Required]
         public string BoxItems { get; set; } = string.Empty;
-        [Required]
-     
-
+        [Required]   
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        
-
-
+       
         [ForeignKey(nameof(VendorId))]
         public Vendor Vendor { get; set; }
  
-
         [Column("VendorId")]
         public int VendorId { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
 
-        
+        public ICollection<CartItem> CartItems { get; set; }
+
+        public ICollection<OrderItem> OrderItems { get; set; }
+      
     }
 }

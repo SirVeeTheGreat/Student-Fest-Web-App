@@ -34,8 +34,9 @@ namespace Studfest.Repository.Account
             this.Dispose();
         }
 
-        public async Task<string> Login(Login login, string returnUrl)
+        public async Task<string> Login(Login login)
         {
+            string role = "";
             _logger.LogInformation($"Show - loggin in");
             bool isAdmin = false;
             var response = await _authProvider.SignInWithEmailAndPasswordAsync(login.Email, login.Password);
@@ -49,14 +50,26 @@ namespace Studfest.Repository.Account
 
                 try
                 {
+                    isAdmin = this.IsAdmin(login);
+
+                    if (isAdmin == false)
+                    {
+                        role = "User";
+                    }
+                    else
+                    {
+                        role = "Admin";
+                    }
+
                     claims.Add(new Claim(ClaimTypes.Email, user.Email));
                     claims.Add(new Claim(ClaimTypes.Authentication, token));
+                    claims.Add(new Claim(ClaimTypes.Role , role, user.Email));
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var authProperties = new AuthenticationProperties
                     {
                         IsPersistent = true,
-                        ExpiresUtc = DateTime.UtcNow.AddMinutes(30) // Set an expiration time
+                        ExpiresUtc = DateTime.UtcNow.AddMinutes(30) 
                     };
 
                     await _httpContextAccessor.HttpContext.SignInAsync(
@@ -64,28 +77,21 @@ namespace Studfest.Repository.Account
                         new ClaimsPrincipal(claimsIdentity),
                         authProperties);
 
-                    isAdmin = this.IsAdmin(login);
-
-                    if (isAdmin == false)
-                    {
-                        return "User";
-                    }
-                    else
-                    {
-                        return "Admin";
-                    }
+                   
                 }
                 catch
                 {
                     return "Authentication login failed";
                 }
-                 
+                
 
             }
             else
             {
                 return "Token null";
             }
+
+            return role;
         }
 
         private bool IsAdmin(Models.Login login)

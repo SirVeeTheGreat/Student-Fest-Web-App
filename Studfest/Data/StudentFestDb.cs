@@ -16,63 +16,42 @@ namespace Studfest.Data
                 .WithMany(g => g.Products)
                 .HasForeignKey(v => v.VendorId);
 
-            modelBuilder.Entity<ResidentalAddress>()
-                .HasOne<Vendor>(i => i.Vendor)
-                .WithMany(g => g.ResidentalAddress)
-                .HasForeignKey( a => a.VendorId);
-                   
+            modelBuilder.Entity<OrderItem>()
+                .HasOne<Product>(a => a.Product)
+                .WithMany(y => y.OrderItems)
+                .HasForeignKey(z => z.ProductId);
 
-           modelBuilder.Entity<Order>()
-                .HasOne<Product>(i => i.Product)
-                .WithMany(g => g.Orders)
-                .HasForeignKey(v => v.ProductId);
+            modelBuilder.Entity<OrderItem>()
+               .HasOne<Order>(a => a.Order)
+               .WithMany(y => y.OrderItems)
+               .HasForeignKey(z => z.OrderId);
+
+            modelBuilder.Entity<CartItem>()
+              .HasOne<Cart>(a => a.Cart)
+              .WithMany(y => y.CartItem)
+              .HasForeignKey(z => z.CartId);
+
+            modelBuilder.Entity<CartItem>()
+              .HasOne<Product>(a => a.Product)
+              .WithMany(y => y.CartItems)
+              .HasForeignKey(z => z.ProductId);
             
-
             modelBuilder.Entity<ApprovedVendor>()
-                .HasOne<Vendor>(i => i.Vendor)
-                .WithMany( a =>  a.ApprovedVendor)
-                .HasForeignKey( i => i.VendorId);
-
-            modelBuilder.Entity<Order>()
-                .HasOne<DeliveryTeam>( i => i.DeliveryTeam)
-                .WithMany( a => a.Orders)
-                .HasForeignKey( y => y.DeliveryTeamId);
-
-            modelBuilder.Entity<Order>()
-                .HasOne<DeliveryInformation>(i => i.DeliveryInformation)
-                .WithMany(a => a.Orders)
-                .HasForeignKey(y => y.DeliverInfoId);
-
-            
-
-            modelBuilder.Entity<ServiceProvidersDocuments>()
-                .HasOne<Vendor>(i => i.Vendor)
-                .WithMany(a => a.Documents)
-                .HasForeignKey(y => y.VendorId);
-
+                .HasOne<Vendor>(i => i.Vendor);
+          
             modelBuilder.Entity<Services>()
                 .HasOne<Vendor>(i => i.Vendor)
                 .WithMany(a => a.Services)
-                .HasForeignKey(y => y.VendorId);
+                .HasForeignKey(y => y.VendorId);               
 
+            
 
-            modelBuilder.Entity<ContactDetails>()
-                .HasOne<Vendor>(i => i.Vendors)
-                .WithMany(a => a.ContactDetails)
-                .HasForeignKey( y => y.VendorId);
-
-            modelBuilder.Entity<ContactDetails>()
-                .HasOne<DeliveryTeam>(i => i.DeliveryTeams)
-                .WithMany(a => a.ContactDetails)
-                .HasForeignKey(y => y.DeliveryTeamId);
-
-            modelBuilder.Entity<ApprovedDeliveryTeam>()
-                .HasOne<DeliveryTeam>(a => a.DeliveryTeam)
-                .WithMany(i => i.ApprovedDeliveryTeams)
-                .HasForeignKey(y => y.DeliveryTeamId);
-
-
+           
         }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Events> Events { get; set; }
 
         public DbSet<Vendor> Vendor { get; set; }
 
@@ -82,17 +61,7 @@ namespace Studfest.Data
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<ServiceProvidersDocuments> ServicesDocuments { get; set; }
-
         public DbSet<ResidentalAddress> ResidentalAddresses { get; set; }
-
-        public DbSet<DeliveryTeam> DeliveryTeam { get; set; }
-
-       
-
-        public DbSet<DeliveryInformation> DeliveryInformation { get; set;}
-
-        public DbSet<ApprovedDeliveryTeam> ApprovedDeliveryTeams { get; set; }
 
         public DbSet<ApprovedVendor> ApprovedVendors { get; set; }
 

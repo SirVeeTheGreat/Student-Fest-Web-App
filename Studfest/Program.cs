@@ -22,8 +22,11 @@ builder.Services.AddDbContextPool<StudentFestDb>(options =>
 
 
 
+
+
 builder.Services.AddScoped<IProduct, ProductRepo>();
 builder.Services.AddScoped<IVendor, VendorRepo>();
+builder.Services.AddScoped<IService, ServiceRepo>();    
 builder.Services.AddScoped<AccountRepo>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -33,6 +36,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             options.LogoutPath = "/Account/LogOut";
             options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Vendor", policy => policy.RequireClaim("VendorEmailAddress"));
+});
 
 
 
@@ -74,6 +82,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Product}/{action=Index}/{id?}");
 
 app.Run();
